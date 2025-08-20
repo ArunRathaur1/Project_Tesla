@@ -77,3 +77,44 @@ INSERT INTO Emp VALUES
 (1008, 'Olivia Garcia', '2023-01-14', 1007, 'Programmer', 6000, NULL, 103, 4);
 
 select d.deptname,e.empname,d.deptno from Dept as d left join Emp as e on d.deptno=e.deptno; 
+select e.job,l.city from Dept as d left join Location as l on d.locno=l.locno left join Emp as e on d.deptno=e.deptno
+ where d.deptno=101;
+ 
+ SELECT e.empname, d.deptname, d.locno, l.city
+FROM Emp e
+JOIN Dept d ON e.deptno = d.deptno
+JOIN Location l ON d.locno = l.locno
+WHERE e.commission IS NOT NULL;
+
+SELECT e.empname, e.job, e.deptno, d.deptname
+FROM Emp e
+JOIN Dept d ON e.deptno = d.deptno
+JOIN Location l ON d.locno = l.locno
+WHERE l.city = 'Toronto';
+
+SELECT e.empname AS Employee, e.empno AS EmpNo,
+       m.empname AS Manager, m.empno AS MgrNo
+FROM Emp e
+LEFT JOIN Emp m ON e.mgr = m.empno;
+
+SELECT e1.empname AS Employee, e1.deptno,
+       e2.empname AS Colleague
+FROM Emp e1
+JOIN Emp e2 ON e1.deptno = e2.deptno
+WHERE e1.empname = 'Smith'
+  AND e1.empno <> e2.empno;
+
+SELECT e.empname, e.hire_date
+FROM Emp e
+WHERE e.hire_date > (
+    SELECT hire_date
+    FROM Emp
+    WHERE empname = 'Davies'
+);
+
+SELECT e.empname, e.job, d.deptname, e.salary, s.grade
+FROM Emp e
+JOIN Dept d ON e.deptno = d.deptno
+JOIN Salgrade s ON e.grade = s.grade;
+
+
